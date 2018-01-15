@@ -69,6 +69,11 @@ namespace IAssist
         {
             SetGamma(200);
         }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 
