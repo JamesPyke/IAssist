@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace IAssist
@@ -22,10 +15,10 @@ namespace IAssist
         public static extern IntPtr GetDC(IntPtr hWnd);
 
         [DllImport("gdi32.dll")]
-        public static extern bool SetDeviceGammaRamp(IntPtr hDC, ref RAMP lpRamp);
+        public static extern bool SetDeviceGammaRamp(IntPtr hDC, ref Colour lpRamp);
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
-        public struct RAMP
+        public struct Colour
         {
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 256)]
             public UInt16[] Red;
@@ -35,62 +28,80 @@ namespace IAssist
             public UInt16[] Blue;
         }
 
-        public static void SetGamma(int gamma)
+        public static void SetColourTemperature(int red, int green, int blue)
         {
-            if (gamma <= 256 && gamma >= 1)
+            int maxValue = 65535;
+
+            Colour colour = new Colour
             {
-                RAMP ramp = new RAMP();
-                ramp.Red = new ushort[256];
-                ramp.Green = new ushort[256];
-                ramp.Blue = new ushort[256];
-                for (int i = 1; i < 256; i++)
-                {
-                    int iArrayValue = i * (gamma + 128);
+                Red = new ushort[256],
+                Green = new ushort[256],
+                Blue = new ushort[256]
+            };
 
-                    if (iArrayValue > 65535)
-                        iArrayValue = 65535;
-                    ramp.Red[i] = ramp.Blue[i] = ramp.Green[i] = (ushort)iArrayValue;
-                }
-                SetDeviceGammaRamp(GetDC(IntPtr.Zero), ref ramp);
+            for (int i = 1; i < 256; i++)
+            {
+                int redValue = i * (red + 128);
+                if (redValue > maxValue)
+                    redValue = maxValue;
+               
+                colour.Red[i] = (ushort)redValue;
+
+                int greenValue = i * (green + 128);
+                if (greenValue > maxValue)
+                    greenValue = maxValue;
+                colour.Green[i] = (ushort)greenValue;
+
+                int blueValue = i * (blue + 128);
+                if (blueValue > maxValue)
+                    blueValue = maxValue;
+                colour.Blue[i] = (ushort)blueValue;
             }
+
+            SetDeviceGammaRamp(GetDC(IntPtr.Zero), ref colour);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void UpdateSliderLabels()
         {
-            SetGamma(10);
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            SetGamma(100);
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            SetGamma(200);
+            LblRedAmount.Text = SldrRed.Value.ToString();
+            LblGreenAmount.Text = SldrGreen.Value.ToString();
+            LblBlueAmount.Text = SldrBlue.Value.ToString();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            UpdateSliderLabels();
+        }
 
+        private void SldrRed_ValueChanged(object sender, EventArgs e)
+        {
+            LblRedAmount.Text = SldrRed.Value.ToString();
+        }
+
+        private void SldrGreen_ValueChanged(object sender, EventArgs e)
+        {
+            LblGreenAmount.Text = SldrGreen.Value.ToString();
+        }
+
+        private void SldrBlue_ValueChanged(object sender, EventArgs e)
+        {
+            LblBlueAmount.Text = SldrBlue.Value.ToString();
+        }
+
+        private void BtnSetColourTemperature_Click(object sender, EventArgs e)
+        {
+            SetColourTemperature(SldrRed.Value, SldrGreen.Value, SldrBlue.Value);
+        }
+
+        private void BtnResetColourTemperature_Click(object sender, EventArgs e)
+        {
+            SldrRed.Value = SldrGreen.Value = SldrBlue.Value = 128;
+            BtnSetColourTemperature_Click(this, null);
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            BtnResetColourTemperature_Click(this, null);
         }
     }
 }
-
-
-/*namespace IAssist
-{
-    public partial class MainForm : Form
-    {
-        public MainForm()
-        {
-            InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-          
-        }
-    }
- }
- */
