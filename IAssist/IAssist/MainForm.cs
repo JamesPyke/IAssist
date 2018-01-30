@@ -68,6 +68,8 @@ namespace IAssist
             LblBlueAmount.Text = SldrBlue.Value.ToString();
         }
 
+
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             UpdateSliderLabels();
@@ -102,6 +104,70 @@ namespace IAssist
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             BtnResetColourTemperature_Click(this, null);
+        }
+
+        private void BtnClickLightBlue(object sender, MouseEventArgs e)
+        {
+            SldrRed.Value = 84;
+            SldrGreen.Value = 113;
+            SldrBlue.Value = 179;
+            BtnSetColourTemperature_Click(this, null);
+        }
+
+        private void BtnClickTurquoise(object sender, MouseEventArgs e)
+        {
+            SldrRed.Value = 58;
+            SldrGreen.Value = 137;
+            SldrBlue.Value = 117;
+            BtnSetColourTemperature_Click(this, null);
+        }
+
+        private void BtnClickGreen(object sender, MouseEventArgs e)
+        {
+            SldrRed.Value = 71;
+            SldrGreen.Value = 140;
+            SldrBlue.Value = 64;
+            BtnSetColourTemperature_Click(this, null);
+        }
+
+        private void BtnClickLightYellow(object sender, MouseEventArgs e)
+        {
+            SldrRed.Value = 124;
+            SldrGreen.Value = 124;
+            SldrBlue.Value = 20;
+            BtnSetColourTemperature_Click(this, null);
+        }
+
+        private void BtnClickYellow(object sender, MouseEventArgs e)
+        {
+            SldrRed.Value = 153;
+            SldrGreen.Value = 120;
+            SldrBlue.Value = 24;
+            BtnSetColourTemperature_Click(this, null);
+        }
+
+        private void BtnClickPurple(object sender, MouseEventArgs e)
+        {
+            SldrRed.Value = 89;
+            SldrGreen.Value = 49;
+            SldrBlue.Value = 119;
+            BtnSetColourTemperature_Click(this, null);
+        }
+
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                tryIcon.Visible = true;
+                this.Hide();
+            }
+        }
+
+        private void tryIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
+            tryIcon.Visible = false;
         }
     }
 }
