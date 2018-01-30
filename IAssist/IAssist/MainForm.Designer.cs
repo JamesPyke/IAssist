@@ -242,9 +242,12 @@
             // 
             // tryIcon
             // 
+            this.tryIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.tryIcon.BalloonTipText = "Double Click Icon to Launch";
+            this.tryIcon.BalloonTipTitle = "IAssist";
             this.tryIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("tryIcon.Icon")));
             this.tryIcon.Tag = "IAssist";
-            this.tryIcon.Text = "notifyIcon";
+            this.tryIcon.Text = "IAssist";
             this.tryIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.tryIcon_MouseDoubleClick);
             // 
             // MainForm

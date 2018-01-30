@@ -11,6 +11,8 @@ namespace IAssist
             InitializeComponent();
         }
 
+        private bool showBallon = true;
+
         [DllImport("user32.dll")]
         public static extern IntPtr GetDC(IntPtr hWnd);
 
@@ -160,6 +162,12 @@ namespace IAssist
             {
                 tryIcon.Visible = true;
                 this.Hide();
+            
+                if (showBallon == true)
+                {
+                    tryIcon.ShowBalloonTip(1);
+                    showBallon = false;
+                }
             }
         }
 
