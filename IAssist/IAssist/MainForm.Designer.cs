@@ -48,9 +48,14 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.tryIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.menuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.MenuEnable = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuDisable = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuSetColour = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.SldrRed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SldrGreen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SldrBlue)).BeginInit();
+            this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // SldrRed
@@ -245,16 +250,46 @@
             this.tryIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.tryIcon.BalloonTipText = "Double Click Icon to Launch";
             this.tryIcon.BalloonTipTitle = "IAssist";
+            this.tryIcon.ContextMenuStrip = this.menuStrip;
             this.tryIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("tryIcon.Icon")));
             this.tryIcon.Tag = "IAssist";
             this.tryIcon.Text = "IAssist";
             this.tryIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.tryIcon_MouseDoubleClick);
             // 
+            // menuStrip
+            // 
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuEnable,
+            this.MenuDisable,
+            this.MenuSetColour});
+            this.menuStrip.Name = "contextMenuStrip1";
+            this.menuStrip.Size = new System.Drawing.Size(130, 70);
+            // 
+            // MenuEnable
+            // 
+            this.MenuEnable.Name = "MenuEnable";
+            this.MenuEnable.Size = new System.Drawing.Size(129, 22);
+            this.MenuEnable.Text = "Enable";
+            this.MenuEnable.Click += new System.EventHandler(this.MenuEnable_Click);
+            // 
+            // MenuDisable
+            // 
+            this.MenuDisable.Name = "MenuDisable";
+            this.MenuDisable.Size = new System.Drawing.Size(129, 22);
+            this.MenuDisable.Text = "Disable";
+            this.MenuDisable.Click += new System.EventHandler(this.MenuDisable_Click);
+            // 
+            // MenuSetColour
+            // 
+            this.MenuSetColour.Name = "MenuSetColour";
+            this.MenuSetColour.Size = new System.Drawing.Size(129, 22);
+            this.MenuSetColour.Text = "Set Colour";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(351, 252);
+            this.ClientSize = new System.Drawing.Size(355, 252);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
@@ -283,6 +318,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.SldrRed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SldrGreen)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SldrBlue)).EndInit();
+            this.menuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -308,6 +344,10 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.NotifyIcon tryIcon;
+        private System.Windows.Forms.ContextMenuStrip menuStrip;
+        private System.Windows.Forms.ToolStripMenuItem MenuEnable;
+        private System.Windows.Forms.ToolStripMenuItem MenuDisable;
+        private System.Windows.Forms.ToolStripMenuItem MenuSetColour;
     }
 }
 
